@@ -1,8 +1,8 @@
 //CELLULAR_AUTOMATON_REACTION_DIFFUSION_advanced computer science for physics
 /*
-	l'idea è quella di scrivere un automa cellulare che possa replicare gli stessi
-	risultati di un sistema complesso regolato da equazioni di diffusione e di rea-
-	zione. Le celle sono del tipo: inert_cells, free_particle_A, free_particle_B, source_B, source_A.
+ The idea is to write a cellular automaton that can replicate the same results of a 
+ complex system governed by diffusion and reaction equations. The cells are of the following types: 
+ inert_cells, free_particle_A, free_particle_B, source_B, source_A.
  */
 
 #include <allegro.h>
@@ -26,8 +26,6 @@ const int SCREEN_HEIGHT = CARDheight + CARDinfo;
 const int CARD_WIDTH  = CARDwidth + 2;  //  configuration width + frame of insensitive (to the transition function) cells
 const int CARD_HEIGHT = CARDheight + 2; // configuration heigth + frame of insensitive (to the transition function) cells
 
-//int ker0[KERNELwidth][KERNELheight];
-//int ker1[KERNELwidth][KERNELheight];
 struct CA
 {
    int type;
@@ -57,7 +55,7 @@ int red;        // = makecol(255,0,0);
 int yellow;     // = makecol(255, 255, 0);
 int grey;       // = makecol(150, 150, 150);
 
-//funzione che copia la configurazione al tempo zero
+//function that copies the configuration at time zero
 void copy1_0 ()
 { for (int i=0; i<CARD_WIDTH; i++)
 	for (int j=0; j<CARD_HEIGHT; j++){
@@ -68,8 +66,8 @@ void copy1_0 ()
 
 void initialize ()
 {
-   //insert input data: percentuale iniziale di particelle di tipo A e
-   //numero di sorgenti di particelle di tipo B
+   //insert input data: initial percentage of type A particles and
+   //number of type B particle sources
    cout << "Type A particles percentage: ";
    cin >> perc_tipeA;
    cout << "Number of Type B aggregation points: ";
@@ -188,7 +186,6 @@ bool sfondo(int x, int y)
 
 void genera_B(int x, int y)
 {
-   //aggiunto ora
 //   if (step % 3 == 0 && particle_B(x,y)) {
    if (step % 2 == 0 && source_B(x,y)) {
         // Genera le particelle di tipo B dalla sorgente
@@ -465,13 +462,12 @@ int main()
                }
    textprintf_ex(buffer,font,0,CARDheight,white,black, "Partic=%i",perc_tipeA);//print the initial percentage of free particles
    textprintf_ex(buffer,font,70,CARDheight,white,black, "%c", percent); // print the character '%'
-	textprintf_ex(buffer,font,80,CARDheight,white,black, "-aggrPoints=%i", sources);//print the initial number of aggregation points
+   textprintf_ex(buffer,font,80,CARDheight,white,black, "-aggrPoints=%i", sources);//print the initial number of aggregation points
    textprintf_ex(buffer,font,190,CARDheight,white,black, ">step:%i",step); //print the number of CARD
    textprintf_ex(buffer,font,290,CARDheight,white,black, "                             "); // cancel the previous text
    textprintf_ex(buffer,font,290,CARDheight,white,black, ">freePA:%i",diffA_sum);// number of  free particles
    textprintf_ex(buffer,font,390,CARDheight,white,black, ">freePB:%i",diffB_sum);// number of aggregation points
-   blit(buffer,screen,0,0,0,0,SCREEN_width,SCREEN_HEIGHT);
-     //stampa (disegna)sullo schermo il buffer d'uscita
+   blit(buffer,screen,0,0,0,0,SCREEN_width,SCREEN_HEIGHT); //stampa (disegna)sullo schermo il buffer d'uscita
    vsync();
    rest(16);
 
